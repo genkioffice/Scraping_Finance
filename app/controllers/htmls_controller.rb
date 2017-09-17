@@ -6,11 +6,12 @@ class HtmlsController < ApplicationController
 
   def create
     @html = Html.new(strong_params)
+    # render api method to store html-data from Yahoo! to html-model.
     api(@html.code)
     if @html.save
-      redirect_to new_html_path
+      redirect_to new_html_path, :flash => { :notice => "You entered #{@html.code}, and the data is saved!" }
     else
-      redirect_to new_html_path
+      redirect_to new_html_path, :flash => { :alert => "Something broken, make sure you entered 4 digits." }
     end
   end
 
